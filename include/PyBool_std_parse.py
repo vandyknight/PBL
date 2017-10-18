@@ -227,7 +227,9 @@ def p_error(p):
     raise Parse_Error("Unable to parse line number " + str(line_num))
 
 # Build the parser
-parser = yacc.yacc()
+def get_parser():
+    lexer = lex.lex()
+    return yacc.yacc()
 
 #############################################
 #external methods
@@ -249,6 +251,7 @@ def parse_file(fName):
     main_expr = {}
     sub_expr  = {}
 
+    parser = get_parser()
     f = open(fName, 'r')
     s = f.readline()
     while s != "":
